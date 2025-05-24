@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SOIL_Stabilisation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: url('/vertical-shot-peaceful-desert-clear-blue-sky-captured-morocco.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+
+    }
+
+    .hero-section {
+      background: url('/vertical-shot-peaceful-desert-clear-blue-sky-captured-morocco.jpg') center/cover no-repeat;
+      height: 100vh;
+      color: white;
+      position: relative;
+      border-radius: 25px;
+      margin: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      opacity: 0;
+    }
+
+    .overlay {
+      background: rgba(0,0,0,0.3);
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .main-title h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      opacity: 0;
+      animation: fadeSlideIn 1s ease-out forwards;
+      animation-delay: 0.2s;
+      margin-top: 20px;
+    }
+
+    .main-title p {
+      font-size: clamp(0.8rem, 1.5vw, 1rem);
+      max-width: 400px;
+      margin: 15px 0;
+      opacity: 0;
+      animation: fadeSlideIn 1s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .main-title button {
+      opacity: 0;
+      animation: fadeSlideIn 1s ease-out forwards;
+      animation-delay: 0.8s;
+      padding: 10px 25px;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #fff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.301);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 20px;
+      color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      min-width: 150px;
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .great-deals {
+      border-left: 2px solid #ddd;
+      padding-left: 15px;
+      text-align: left;
+    }
+
+    .great-deals h6 {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .great-deals p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+
+    .nav-icons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .nav-icons i {
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+      padding: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-icons i:hover {
+      transform: scale(1.2) rotate(10deg);
+      color: #00c4ff;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOutOverlay {
+      to {
+        visibility: hidden;
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+
+    @keyframes showContent {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .landing-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, #d2b48c, #f5deb3);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      animation: fadeOutOverlay 1s ease 5s forwards;
+    }
+
+    .sand-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .sand-grain {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background-color: rgba(235, 181, 110, 0.849);
+      border-radius: 50%;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .company-name {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: bold;
+      color: #4b3621;
+      opacity: 0;
+      z-index: 10;
+      animation: fadeIn 2s ease 2.5s forwards;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero-section {
+        margin: 15px;
+        border-radius: 20px;
+      }
+      
+      .overlay {
+        padding: 20px;
+      }
+      
+      .info-box {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        margin: 10px;
+        border-radius: 15px;
+      }
+      
+      .overlay {
+        padding: 15px;
+      }
+      
+      .main-title h1 {
+        font-size: 2.5rem;
+      }
+      
+      .info-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .info-item {
+        min-width: 100%;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        padding-bottom: 15px;
+      }
+      
+      .info-item:last-child {
+        border-bottom: none;
+      }
+      
+      .great-deals {
+        border-left: none;
+        padding-left: 0;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      .nav-icons {
+        gap: 10px;
+      }
+      
+      .nav-icons i {
+        font-size: 18px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-section {
+        margin: 5px;
+        border-radius: 10px;
+      }
+      
+      .overlay {
+        padding: 15px 10px;
+      }
+      
+      .main-title h1 {
+        font-size: 2rem;
+      }
+      
+      .main-title p {
+        font-size: 0.9rem;
+      }
+      
+      .main-title button {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .info-box {
+        padding: 10px;
+      }
+      
+      .company-name {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="landing-overlay">
+    <div class="sand-animation" id="sandContainer"></div>
+    <h1 class="company-name">Soil Stabilisation</h1>
+  </div>
+
+  <section class="hero-section" id="heroSection">
+    <div class="overlay">
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-user"></i>
+        <i class="fas fa-bars"></i>
+      </div>
+
+      <div class="main-title">
+        <h1>Soil <br/> Stabilisation</h1>
+        <p>Ali vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.</p>
+        <button class="btn btn-primary">About Us</button>
+      </div>
+
+      <div class="info-box">
+        <div class="info-item text-center">
+          <h6>Live guide</h6>
+          <p>English</p>
+        </div>
+        <div class="info-item text-center">
+          <h6>Easy cancelation</h6>
+          <p>Cancel before 24 hours</p>
+        </div>
+        <div class="info-item text-center">
+          <h6>Pick-up service</h6>
+          <p>Pick-up available</p>
+        </div>
+        <div class="info-item great-deals">
+          <h6>Great Deals</h6>
+          <p>Grab the Dubai Holiday Package <br><strong>R2750 Per Person</strong></p>
+          <p>Dubai 3-night holiday <br><strong>R3450 Per Person</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const sandContainer = document.getElementById("sandContainer");
+    const sandCount = window.innerWidth < 768 ? 50 : 100;
+
+    for (let i = 0; i < sandCount; i++) {
+      const grain = document.createElement("div");
+      grain.classList.add("sand-grain");
+      grain.style.left = Math.random() * 100 + "vw";
+      grain.style.animationDelay = Math.random() * 5 + "s";
+      grain.style.width = grain.style.height = Math.random() * 3 + 2 + "px";
+      sandContainer.appendChild(grain);
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById("heroSection").style.animation = "showContent 1s ease forwards";
+      }, 1100);
+    });
+
+    function handleResize() {
+      const heroSection = document.getElementById("heroSection");
+      if (window.innerWidth < 768) {
+        heroSection.style.margin = "10px";
+      } else {
+        heroSection.style.margin = "20px";
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+  </script>
+</body>
+</html>
